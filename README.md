@@ -2,6 +2,10 @@
 
 A fast, headless API that accepts a LinkedIn profile URL and returns structured JSON containing the user's name, headline, location, experience, education, skills, and profile image. Built for the Tross Careers Hiring Challenge.
 
+# LinkedIn Profile API (Reverse Engineering Challenge)
+
+**🚀 Live Demo Endpoint:** `https://linkedin-profile-api-lfmf.onrender.com/api/profile`
+
 ## Approach & The Debugging Journey
 
 The challenge required a **purely reverse-engineered solution without headless browsers**. This meant interacting directly with LinkedIn's internal Rest.li/Voyager API via standard HTTP requests. 
@@ -41,11 +45,17 @@ This process involved overcoming several layers of LinkedIn's security:
 * `url` (string, required): The full LinkedIn profile URL.
 
 **Example Request:**
-\`\`\`bash
-curl -G "https://your-deployed-url.com/api/profile" \
+```bash
+curl -G "https://linkedin-profile-api-lfmf.onrender.com/api/profile" \
   --data-urlencode "url=https://www.linkedin.com/in/gargi-giri-a2067a261/"
+
 \`\`\`
 
+**Testing in a Web Browser:**
+If you prefer to test the GET request directly in a web browser, ensure the target LinkedIn URL is fully URL-encoded. Otherwise, the browser may misinterpret the nested `https://` as a search query.
+
+Use this formatted link to test the live deployment:
+`https://linkedin-profile-api-lfmf.onrender.com/api/profile?url=https%3A%2F%2Fwww.linkedin.com%2Fin%2Fgargi-giri-a2067a261%2F`
 ## Known Limitations & Scraping Realities
 
 * **Datacenter IP Flagging:** While `curl_cffi` fixes the TLS fingerprint, deploying this to a cloud host (Render, AWS) means requests originate from a datacenter IP. LinkedIn may eventually flag the IP and return a 401/403. In production, this requires routing through residential proxies.
